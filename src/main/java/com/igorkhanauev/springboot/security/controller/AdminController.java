@@ -5,6 +5,7 @@ import com.igorkhanauev.springboot.security.model.User;
 import com.igorkhanauev.springboot.security.service.RoleService;
 import com.igorkhanauev.springboot.security.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -28,7 +29,14 @@ public class AdminController {
     @GetMapping()
     public String allUsers(Model model){
         List<User> allUsers = userService.getAllUsers();
+        model.addAttribute("allRoles", roleService.getAllRoles());
         model.addAttribute("allUsers", allUsers);
+        model.addAttribute("addUser", new User());
+        model.addAttribute("allRoles", roleService.getAllRoles());
+        model.addAttribute("userAuthentication", (User) SecurityContextHolder
+                .getContext()
+                .getAuthentication()
+                .getPrincipal());
         return "allUsers";
     }
 
@@ -39,8 +47,8 @@ public class AdminController {
         return "add";
     }
 
-    @PostMapping(value = "add")
-    public String addUserBd(@ModelAttribute("addUser") User user,
+    @PostMapping("/add")
+    public String addUser(@ModelAttribute("addUser") User user,
                             @RequestParam(value = "select_role", required = false) String[] role) {
         Set<Role> rol = new HashSet<>();
         for (String s : role) {
@@ -52,7 +60,7 @@ public class AdminController {
         }
         user.setRoles(rol);
         userService.save(user);
-        return "redirect:";
+        return "redirect:/admin";
     }
 
     @GetMapping("/{id}/edit")
@@ -62,10 +70,17 @@ public class AdminController {
         return "edit";
     }
 
-    @PostMapping("/{id}")
-    public String updateUSer(@ModelAttribute("user") User user,
+    @PostMapping("/{id}/edit")
+    public String updateUser(@ModelAttribute("user") User user,
                              @RequestParam(value = "select_roles", required = false) String [] role){
         userService.update(user,role);
+        return "redirect:/admin";
+    }
+
+    @PatchMapping(value = "/{id}/edit")
+    public String update(@ModelAttribute("user") User user,
+                         @RequestParam(value = "select_roles", required = false) String[] role) {
+        userService.update(user, role);
         return "redirect:/admin";
     }
 
