@@ -11,29 +11,41 @@
 </head>
 <body>
 <h2>User Info</h2>
+<header>
+    <div class="container-fluid bg-dark">
+        <nav class="navbar navbar-expand-lg navbar-light bg-dark">
+            <a class="navbar-brand text-white" href="#"><h5><span sec:authentication="name"></span></h5></a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
 
-<div>
-    <nav class="navbar navbar-light navbar-expand-md bg-dark">
-        <div class="container-fluid">
-            <span class="text-light"><strong th:text="${user.getUsername()}"></strong></span>
-            <span class="text-light"> with roles: </span>
-            <span class="text-light" id="userRoles"><strong th:each="role : ${user.getRoles()}"
-                                                            th:text="${role.getName()} + ' '"></strong></span>
-            <ul class="nav navbar-nav flex-nowrap ml-auto">
-                <li class="nav-item" role="presentation"><a class="nav-link text-muted" href="/logout">Logout</a></li>
-            </ul>
-        </div>
-    </nav>
-</div>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item active text-white-50">
 
+                        <h5>with roles:
+                            <span sec:authorize="hasAnyRole('ROLE_ADMIN')">
+                              ADMIN
+                            </span>
+                            <span sec:authorize="hasAnyRole('ROLE_USER')">
+                                USER
+                            </span>
+                        </h5>
+                    </li>
+                </ul>
+                <a class="nav-link text-white-50 logout" href="/logout">Logout</a>
+            </div>
+        </nav>
+    </div>
+</header>
 
 <div class="d-flex">
     <div class="container-fluid">
         <div class="row">
             <div class="col-sm-2 vh-100">
                 <ul class="nav flex-column nav-pills mx-n3 mt-3" aria-orientation="vertical" id="nav">
-                    <!--<li class="nav-item"><a sec:authorize="hasRole('ROLE_ADMIN')" class="nav-link active border rounded" href="/user">User</a></li>-->
-                    <li class="nav-item"><a sec:authorize="hasRole('ROLE_ADMIN')" class="nav-link active border rounded"
+                    <li class="nav-item"><a sec:authorize="hasRole('ROLE_USER')" class="nav-link active border rounded"
                                             href="/user">User</a></li>
                 </ul>
             </div>

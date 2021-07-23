@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:5px
       xmlns:sec="http://www.w3.org/1999/xhtml">
-<html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title>All Users</title>
@@ -23,8 +23,8 @@
     <div class="container-fluid bg-dark">
         <nav class="navbar navbar-expand-lg navbar-light bg-dark">
             <a class="navbar-brand text-white" href="#"><h5><span sec:authentication="name"></span></h5></a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-                    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <button  class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                     aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
 
@@ -34,15 +34,15 @@
 
                         <h5>with roles:
                             <span sec:authorize="hasAnyRole('ROLE_ADMIN')">
-                               ROLE_ADMIN
+                              ADMIN
                             </span>
                             <span sec:authorize="hasAnyRole('ROLE_USER')">
-                                ROLE_USER
+                                USER
                             </span>
                         </h5>
                     </li>
                 </ul>
-                <a class="nav-link text-white-50" href="http://localhost:8080/login">Logout</a>
+                <a class="nav-link text-white-50 logout" href="/logout">Logout</a>
             </div>
         </nav>
     </div>
@@ -55,6 +55,8 @@
                    href="/admin" role="tab" sec:authorize="hasRole('ROLE_ADMIN')" aria-controls="home">Admin</a>
                 <a class="list-group-item list-group-item-action" id="list-profile-list" data-toggle="list"
                    href="/user" sec:authorize="hasRole('ROLE_USER')" role="tab" aria-controls="profile">User</a>
+
+
             </div>
         </div>
         <div class="col-10 p-5 mb-2 bg-light">

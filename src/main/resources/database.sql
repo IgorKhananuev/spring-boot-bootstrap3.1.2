@@ -16,11 +16,10 @@ CREATE TABLE users.users
 );
 
 INSERT INTO users.users (username, password, name, surname, age, email)
-VALUES ('ADMIN', '1', 'admin', 'surname1', 18, 'a1@a');
+VALUES ('ADMIN', '$2a$10$HFneOueUO3z5chv3uNjlLe47umaXEUhWx8hl7UM.vaWvsyGIpW4U.', 'admin', 'surname1', 18, 'a1@a'); -- password 1
 INSERT INTO users.users (username, password, name, surname, age, email)
-VALUES ('USER', '2', 'user', 'surname2', 18, 'a2@a');
-INSERT INTO users.users (username, password, name, surname, age, email)
-VALUES ('TEST', '$2y$10$nYomgDzTUQycPFR6kXTe1emJwWHR5oXXqfOjxHzqulZigY3lIqd.e', 'test', 'surname3', 18, 'a3@a');
+VALUES ('USER', '$2a$10$HFneOueUO3z5chv3uNjlLe47umaXEUhWx8hl7UM.vaWvsyGIpW4U.', 'user', 'surname2', 18, 'a2@a'); -- password 1
+
 
 -- Table: roles
 CREATE TABLE users.roles
@@ -33,8 +32,7 @@ INSERT INTO users.roles
 VALUES (1, 'ROLE_USER');
 INSERT INTO users.roles
 VALUES (2, 'ROLE_ADMIN');
-INSERT INTO users.roles
-VALUES (3, 'ROLE_ADMIN');
+
 
 
 -- Table: for mapping user add roles: user_roles
@@ -53,8 +51,6 @@ INSERT INTO users.user_roles
 VALUES (1, 2);
 INSERT INTO users.user_roles
 VALUES (2, 1);
-INSERT INTO users.user_roles
-VALUES (3, 2);
 
 
 
